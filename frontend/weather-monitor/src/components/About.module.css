@@ -1,0 +1,183 @@
+/* Global Settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    /*background-color: #f7f7f7;*/
+    color: #333;
+  }
+  
+  /* About Container */
+  .aboutContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Start content from the top */
+    min-height: 100vh;
+    text-align: center;
+   /* background: linear-gradient(180deg, #fff, #f7f7f7);*/
+    animation: fadeIn 1.5s ease-out forwards;
+    padding: 20px;
+  }
+  
+  /* Navbar Styling */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FF66B2;
+  }
+  
+  .navLinks {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .navLinks a {
+    text-decoration: none;
+    color: #fff5f5;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+  
+  .navLinks a:hover {
+    color: #FF66B2;
+  }
+  
+  /* Main Content Section */
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Aligns content towards the top */
+    align-items: center;
+    padding-top: 50px; /* Space above the content */
+    text-align: center;
+  }
+  
+  .introduction {
+    margin-bottom: 20px;
+    animation: fadeUp 1.2s ease-out forwards;
+  }
+  
+  .introduction h2 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .introduction p {
+    font-size: 18px;
+    color: #555;
+    margin: 20px 0;
+    line-height: 1.6;
+  }
+  
+  /* Card Container */
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap to the next line */
+    justify-content: center; /* Center cards horizontally */
+    gap: 20px; /* Space between cards */
+    margin-top: 30px; /* Space above the card container */
+  }
+  
+  .card {
+    border: 2px solid #FF66B2; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    width: 300px; /* Fixed width for cards */
+    text-align: left; /* Align text to the left */
+    background-color: #ffffff; /* Card background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.3s; /* Smooth transition for hover effect */
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+  }
+  .card h2{
+    font-size: 30px; /* Title size */
+    color: #FF66B2; /* Title color */
+  }
+  .card h3 {
+    font-size: 24px; /* Title size */
+    color: #FF66B2; /* Title color */
+  }
+  
+  .card p {
+    font-size: 16px; /* Description size */
+    color: #494343; /* Description color */
+  }
+  
+  /* Fade In Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Fade Up Animation */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .content {
+      padding: 20px;
+    }
+  
+    .introduction h2 {
+      font-size: 36px;
+    }
+  
+    .card {
+      width: 90%; /* Responsive width for cards */
+    }
+  }
+
+  /* Other existing styles remain unchanged */
+
+/* Full Width Card Style */
+.fullWidthCard {
+    width: 100%; /* Set width to 100% to fill the parent container */
+    margin: 0; /* No margin to keep it flush against the sides */
+    border: 2px solid #FF66B2; /* Use the same border color as the other cards */
+    border-radius: 10px; /* Keep rounded corners consistent */
+    padding: 30px; /* Padding for more internal space */
+    height: 300px; /* Set a fixed height for the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #ffffff; /* White background for the card */
+    text-align:center; /* Align text to the left */
+    animation: fadeIn 1.2s ease-out; /* Optional fade-in effect */
+  }
+  
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 20px; 
+    margin: 30px 0; 
+    padding: 0 10px; 
+  }
+  

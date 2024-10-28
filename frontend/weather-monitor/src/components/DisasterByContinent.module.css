@@ -1,0 +1,155 @@
+/* Global Settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000000;
+    background-image: url('https://img.uhdpaper.com/wallpaper/sea-ocean-render-tree-digital-art-reflection-490@0@f-pc-4k.jpg'); /* Add the background image */
+    background-size: cover; /* Ensure the image covers the entire background */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    color: #333;
+  }
+  
+  /* DisasterByContinent Container */
+  .disasterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Start content from the top */
+    min-height: 100vh;
+    text-align: center;
+    animation: fadeIn 1.5s ease-out forwards;
+    padding: 20px;
+    overflow: hidden;
+  }
+  
+  /* Title Styling */
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FF66B2;
+    margin-bottom: 20px;
+  }
+  
+  /* Dropdown and Button Container */
+  .selectContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .selectContainer select {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: #fff;
+  }
+  
+  .fetchButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg, #ff66b2, #d847ff);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .fetchButton:hover {
+    background: linear-gradient(90deg, #ff4da6, #c339ff);
+    transform: translateY(-2px);
+  }
+  
+  /* Events List */
+  .eventsList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .eventsList li {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #fff;
+  }
+  
+  /* Loading Indicator */
+  .loading {
+    font-size: 18px;
+    color: #fff;
+  }
+  
+  /* Fade In Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .title {
+      font-size: 28px;
+    }
+  
+    .fetchButton {
+      width: 100%;
+      margin: 10px 0;
+    }
+  }
+  /* Card Container */
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap to the next line */
+    justify-content: center; /* Center cards horizontally */
+    gap: 20px; /* Space between cards */
+    margin-top: 30px; /* Space above the card container */
+  }
+  
+  .card {
+    border: 2px solid #FF66B2; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    width: 300px; /* Fixed width for cards */
+    text-align: left; /* Align text to the left */
+    background-color: #ffffff; /* Card background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.3s; /* Smooth transition for hover effect */
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+  }
+  
+  .card h2 {
+    font-size: 30px; /* Title size */
+    color: #FF66B2; /* Title color */
+  }
+  
+  .card h3 {
+    font-size: 24px; /* Subtitle size */
+    color: #FF66B2; /* Subtitle color */
+  }
+  
+  .card p {
+    font-size: 16px; /* Description size */
+    color: #494343; /* Description color */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .card {
+      width: 90%; /* Responsive width for cards */
+    }
+  }
+  

@@ -1,0 +1,69 @@
+/* Container styling for the entire form */
+.formContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  /* Card styling for the form section */
+  .formCard {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+  }
+  
+  /* Title styling */
+  .title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  /* Input fields (text, select, textarea) styling */
+  .input {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  /* Styling for the submit button */
+  .submit {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit:hover {
+    background-color: #218838;
+  }
+  
+  /* Error message styling */
+  .errorMessage {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  /* Message after successful submission */
+  .successMessage {
+    color: green;
+    text-align: center;
+    margin-top: 10px;
+  }
+  

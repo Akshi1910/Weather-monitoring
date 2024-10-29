@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './disaster.module.css'; // Import CSS module
 import { Link } from 'react-router-dom';
-
+import { useAuth0 } from '@auth0/auth0-react'; // Import the useAuth0 hook
+import LogOut from './LogOut';
 const DisasterList = () => {
     const [disasters, setDisasters] = useState([]); // Store disaster reports
     const [resources, setResources] = useState({}); // Store resources by disaster ID
     const [error, setError] = useState(''); // Error handling
-
+    const { loginWithRedirect, user, isAuthenticated } = useAuth0(); 
     useEffect(() => {
         // Fetch all disasters from the backend
         const fetchDisasters = async () => {
@@ -47,13 +48,24 @@ const DisasterList = () => {
             <nav className={styles.navbar}>
                 <h1 className={styles.logo}>Weather Monitoring System</h1>
                 <ul className={styles.navLinks}>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">About</Link></li>
                     <li><Link to="/resource">Resource</Link></li>
                     <li><Link to="/disaster">Report a Disaster</Link></li>
                     <li><Link to="/real">Across world</Link></li>
-                    <li><Link to="/login">LogOut</Link></li>
                     
+                    {isAuthenticated && user ? (
+          <div className={styles.userProfile}>
+            <img
+              src={user.picture} // Use the user's profile picture
+              alt="User Profile"
+              className={styles.profileImage} // Class for styling
+            />
+            <LogOut /> 
+          </div>
+        ) : (
+          <button className={styles.styledButton} onClick={() => loginWithRedirect()}>
+            Login
+          </button>
+        )}
                 </ul>
             </nav>
 

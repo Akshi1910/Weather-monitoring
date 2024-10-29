@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
 import axios from 'axios';
+import styles from './WeatherMap.module.css'; // Custom CSS import
 
-const OPENWEATHER_API_KEY = 'f614beb3883d3c749d24656bc16816be'; // Replace with your OpenWeather API key
+const OPENWEATHER_API_KEY = 'f614beb3883d3c749d24656bc16816be'; // Use environment variables in production!
 
 const WeatherMap = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
-  const mapRef = useRef(null); // Reference to the map DOM element
+  const mapRef = useRef(null); // DOM reference for the map
+  const viewRef = useRef(null); // ArcGIS MapView reference
 
   useEffect(() => {
     loadModules(['esri/Map', 'esri/views/MapView', 'esri/Graphic'], { css: true })
@@ -18,7 +20,7 @@ const WeatherMap = () => {
 
         const view = new MapView({
           container: mapRef.current,
-          map: map,
+          map,
           center: [0, 0],
           zoom: 2,
         });
@@ -26,27 +28,24 @@ const WeatherMap = () => {
         view.on('click', async (event) => {
           const { longitude, latitude } = event.mapPoint;
           console.log(`Clicked at: [${longitude}, ${latitude}]`);
-          await fetchWeatherData(longitude, latitude); // Fetch weather data directly
+          await fetchWeatherData(longitude, latitude);
         });
 
-        viewRef.current = view; // Store view reference for adding markers later
+        viewRef.current = view; // Store the initialized view
       })
       .catch((err) => console.error('Error loading ArcGIS modules:', err));
   }, []);
 
-  const viewRef = useRef(null);
-
-  // Fetch weather data directly using coordinates
   const fetchWeatherData = async (lon, lat) => {
     try {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${OPENWEATHER_API_KEY}`
       );
 
-      console.log('Weather API Response:', response.data); // Debugging
+      console.log('Weather Data:', response.data);
       setWeatherData(response.data);
       setError(null);
-      addMarker(lon, lat, response.data); // Add marker on the map with weather info
+      addMarker(lon, lat, response.data);
     } catch (err) {
       console.error('Error fetching weather data:', err);
       setError('Failed to fetch weather data. Please try again.');
@@ -81,22 +80,22 @@ const WeatherMap = () => {
       const pointGraphic = new Graphic({
         geometry: point,
         symbol: markerSymbol,
-        popupTemplate: popupTemplate,
+        popupTemplate,
       });
 
       viewRef.current.graphics.removeAll(); // Clear previous markers
-      viewRef.current.graphics.add(pointGraphic); // Add new marker
-      viewRef.current.goTo({ center: [lon, lat], zoom: 10 }); // Zoom to location
+      viewRef.current.graphics.add(pointGraphic); // Add the new marker
+      viewRef.current.goTo({ center: [lon, lat], zoom: 10 }); // Zoom to marker
     });
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h1>Weather Map</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <div ref={mapRef} style={{ width: '100%', height: '500px' }}></div>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Weather Map</h1>
+      {error && <p className={styles.error}>{error}</p>}
+      <div ref={mapRef} className={styles.map}></div>
       {weatherData && (
-        <div>
+        <div className={styles.weatherDetails}>
           <h2>Weather Details:</h2>
           <p><b>Location:</b> {weatherData.name}</p>
           <p><b>Temperature:</b> {weatherData.main.temp} °C</p>

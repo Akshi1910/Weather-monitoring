@@ -1,0 +1,51 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000;
+    color: #fff;
+  }
+  
+  /* Container Styling */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .title {
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+  
+  /* Map Container */
+  .map {
+    width: 100%;
+    height: 500px;
+    margin: 20px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Weather Details */
+  .weatherDetails {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .weatherDetails p {
+    margin: 10px 0;
+  }
+  
+  /* Error Message */
+  .error {
+    color: red;
+    margin: 10px 0;
+  }

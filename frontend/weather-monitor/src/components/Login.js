@@ -1,65 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styles from './form.module.css';
+import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import styles from './Login.module.css'; // Assuming you save the CSS in a file named Login.module.css
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const { loginWithRedirect } = useAuth0();
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
-
-      // Store token and username in localStorage
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('username', response.data.username); // Store username
-
-      setError('');
-      navigate('/disasterlist'); // Redirect to disaster list page
-    } catch (err) {
-      if (err.response && err.response.status === 401) {
-        setError('Invalid email or password');
-      } else {
-        setError('Something went wrong. Please try again.');
-      }
+  useEffect(() => {
+    // Get the message from local storage
+    const loginMessage = localStorage.getItem('loginMessage');
+    if (loginMessage) {
+      setMessage(loginMessage);
+      localStorage.removeItem('loginMessage'); // Clear message after displaying
     }
-  };
+  }, []);
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <div className={styles.form}>
       <div className={styles.formCard}>
-        <h2>Login</h2>
-        {error && <p className={styles.errorMessage}>{error}</p>}
-        <label>
-          <input
-            type="email"
-            className={styles.input}
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
-            type="password"
-            className={styles.input}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit" className={styles.submit}>Login</button>
-        <p className={styles.signin}>
-          Don't have an account? <a href="/register">Register</a>
-        </p>
+        <h2>Login Page</h2>
+        {message && <p>{message}</p>} {/* Display the message if it exists */}
+        <button className={styles.submit} onClick={loginWithRedirect}>Log In</button>
+        <div className={styles.signin}>
+          <p>Don't have an account? <a href="/register">Sign Up</a></p>
+        </div>
       </div>
-    </form>
+    </div>
   );
 };
 

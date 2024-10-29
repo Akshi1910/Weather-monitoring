@@ -1,0 +1,141 @@
+/* Global Settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000000;
+    color: #ffefef;
+}
+
+/* Form Container */
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* Form Card Styling */
+.formCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #FF66B2;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    background-color: transparent; /* Keeps the background consistent with dark mode */
+    animation: fadeUp 1.2s ease-out forwards;
+}
+
+h2 {
+    color: #FF66B2;
+}
+
+/* Input and Labels */
+.input {
+    margin: 20px 0;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 100%;
+    background-color: transparent;
+    color: #fff;
+}
+
+.input::placeholder {
+    color: #fff; /* White placeholder text */
+}
+
+label span {
+    display: block;
+    color: #f3f1f1;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+/* Submit Button */
+.submit {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg, #ff66b2, #d847ff);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.submit:hover {
+    background: linear-gradient(90deg, #ff4da6, #c339ff);
+    transform: translateY(-3px);
+}
+
+/* Error Message */
+.errorMessage {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Sign in Link */
+.signin {
+    margin-top: 20px;
+    color: #eae1e1;
+}
+
+.signin a {
+    color: #FF66B2;
+    text-decoration: none;
+}
+
+.signin a:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form {
+        padding: 20px;
+    }
+
+    .formCard {
+        width: 100%;
+        max-width: none;
+    }
+}

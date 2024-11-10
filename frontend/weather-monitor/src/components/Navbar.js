@@ -19,7 +19,7 @@ const Navbar = () => {
         <ul className={styles.navLinks}>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
-          <li><Link to="/weather">Weather</Link></li>
+          <li><Link to="/my">Weather</Link></li>
           <li><Link to="/energy">Solar Energy</Link></li>
           <li><Link to="/wind">Wind Energy</Link></li>
           <li><Link to="/real">Disaster Reports</Link></li>

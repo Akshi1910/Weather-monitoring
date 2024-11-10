@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import jsPDF from 'jspdf';
 import styles from './EnergyDashboard.module.css';
 import Navbar from './Navbar';
-
+import { useAuth0 } from '@auth0/auth0-react';
+import UserReports from './UserReports';
 const EnergyDashboard = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const [input, setInput] = useState('');
   const [panelType, setPanelType] = useState('60');
   const [panelCount, setPanelCount] = useState();
@@ -13,8 +16,8 @@ const EnergyDashboard = () => {
   const [error, setError] = useState(null);            
   const [showDetails, setShowDetails] = useState(false);
   const [showmonth, setShowmonth] = useState(false);
-
-  const [monthlyEnergy, setMonthlyEnergy] = useState(null); // State for monthly energy
+  const [monthlyEnergy, setMonthlyEnergy] = useState(null);
+  const [savedReports, setSavedReports] = useState([]);
 
   const PANEL_AREAS = {
     '60': 1.458,
@@ -22,6 +25,30 @@ const EnergyDashboard = () => {
     '96': 2.3328
   };
   const PANEL_EFFICIENCY = 0.18;
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      
+    }
+  }, [isAuthenticated]);
+
+
+  useEffect(() => {
+    if (user && user.name) {
+      fetchSavedReports(user.name);
+    }
+  }, [user]);
+
+  const fetchSavedReports = async (userName) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/get-reports?userName=${userName}`);
+      setSavedReports(response.data);  // Set the saved reports data to state
+    } catch (error) {
+      console.error('Error fetching saved reports:', error);
+      setError('Error fetching saved reports');
+    }
+  };
+
 
   const fetchWeather = async () => {
     try {
@@ -46,12 +73,10 @@ const EnergyDashboard = () => {
       };
     });
 
-    // Calculate the total energy produced and the average energy
     const totalEnergy = productionData.reduce((total, data) => total + data.energy, 0);
     const averageEnergy = totalEnergy / productionData.length;
 
-    // Calculate the total energy produced for a month (30 days)
-    const monthlyEnergy = averageEnergy * 30;  // Assuming 30 days in a month
+    const monthlyEnergy = averageEnergy * 30;
 
     setEnergyProduction(productionData);
     setMonthlyEnergy(monthlyEnergy);  // Store the monthly energy estimate
@@ -64,11 +89,58 @@ const EnergyDashboard = () => {
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
-    
   };
+
   const togglemonth = () => {
     setShowmonth(!showmonth);
-    
+  };
+
+  const saveDetails = async () => {
+    try {
+      // Make sure user is authenticated and has a name
+      if (!user || !user.name) {
+        alert('User not authenticated');
+        return;
+      }
+
+      // Include user.name in the details to be saved
+      const details = {
+        location: input,
+        panelType,
+        panelCount,
+        energyProduction,
+        monthlyEnergy,
+        userName: user.name,  // Add user name from Auth0
+      };
+
+      await axios.post('http://localhost:5000/save-energy-details', details);
+      alert('Details saved successfully!');
+    } catch (error) {
+      console.error('Error saving details:', error);
+      alert('Failed to save details');
+    }
+  };
+
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text('Solar Energy Production Report', 14, 20);
+    doc.setFontSize(12);
+    doc.text(`Location: ${input}`, 14, 30);
+    doc.text(`Panel Type: ${panelType}-cell`, 14, 40);
+    doc.text(`Number of Panels: ${panelCount}`, 14, 50);
+    doc.text(`Monthly Energy Estimate: ${monthlyEnergy ? monthlyEnergy.toFixed(2) : 'N/A'} W`, 14, 60);
+
+    doc.text('Energy Production Data:', 14, 70);
+
+    let yOffset = 80;
+    energyProduction.forEach((data) => {
+      doc.text(`Time: ${data.time}, DNI: ${data.dni} W/m², Energy: ${data.energy.toFixed(2)} W`, 14, yOffset);
+      yOffset += 10;
+    });
+
+    doc.save('solar_energy_report.pdf');
   };
 
   return (
@@ -76,6 +148,7 @@ const EnergyDashboard = () => {
       <Navbar />
       <div className={styles.container}>
         <h1 className={styles.title}>Solar Energy Production Forecast</h1>
+        <a href='/reports'>Saved reports</a>
         <p>Please enter a country or city</p><br />
 
         <div className={styles.flexContainer}>
@@ -113,6 +186,12 @@ const EnergyDashboard = () => {
             <button onClick={togglemonth} className={styles.button}>
               {showmonth ? 'Hide' : 'Get Monthly'}
             </button>
+            <button onClick={saveDetails} className={styles.button}>
+              Save
+            </button>
+            <button onClick={downloadPDF} className={styles.button}>
+              Download Report
+            </button>
           </div>
 
           <div className={styles.chartContainer}>
@@ -129,9 +208,6 @@ const EnergyDashboard = () => {
             {!weatherData && (
               <div className={styles.inputContainer}>
                 <p>Enter a city or country to get the data!</p>
-                <p>
-                  It allows users to input a location (such as a country or city) and select from different types of solar panels (e.g., 60-cell, 72-cell, or 96-cell panels) to calculate estimated energy production. Once a location is entered and the "Get Forecast" button is clicked, the component simulates fetching weather and solar data. The dashboard displays the forecast visually through an easy-to-read line chart, showing how much energy the solar panels are likely to generate over time. Additionally, users can view detailed information, including sunlight intensity, weather descriptions, and specific energy output values, which can be accessed by clicking the "More Details" button. This feature is especially helpful for those planning solar installations or tracking potential solar energy outputs based on geographic and weather conditions. With this dashboard, users can make better decisions about solar panel investments and energy planning by understanding location-specific solar energy potential.
-                </p>
               </div>
             )}
           </div>

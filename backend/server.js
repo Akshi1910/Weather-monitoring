@@ -151,6 +151,103 @@ app.get('/weather/:location', async (req, res) => {
 
 
 
+const energySchema = new mongoose.Schema({
+  location: String,
+  panelType: String,
+  panelCount: Number,
+  energyProduction: Array,  // Store energy production data
+  monthlyEnergy: Number,
+  userName: String,  // Store the user's name
+});
+
+const Energy = mongoose.model('Energy', energySchema);
+
+const windEnergySchema = new mongoose.Schema({
+  location: String,            // Location of wind turbines
+  turbineCount: Number,        // Number of turbines used
+  energyProduction: Array,     // Array to store energy production data
+  monthlyEnergy: Number,       // Total energy produced monthly
+  userName: String,            // Name of the user submitting the report
+});
+
+const WindReport = mongoose.model('WindReport', windEnergySchema);
+
+
+// Route to save energy details
+app.post('/save-energy-details', async (req, res) => {
+  const { location, panelType, panelCount, energyProduction, monthlyEnergy, userName } = req.body;
+
+  try {
+    const energyDetails = new Energy({
+      location,
+      panelType,
+      panelCount,
+      energyProduction,
+      monthlyEnergy,
+      userName,  // Save the user's name
+    });
+
+    await energyDetails.save();
+    res.status(200).send('Energy details saved successfully!');
+  } catch (error) {
+    console.error('Error saving energy details:', error);
+    res.status(500).send('Failed to save energy details');
+  }
+});
+
+// Route to get saved energy details for the logged-in user
+app.get('/get-reports', async (req, res) => {
+  try {
+    const userName = req.query.userName;  // Get the logged-in user's name from query params
+    if (!userName) {
+      return res.status(400).json({ message: 'User not authenticated' });
+    }
+
+    // Fetch reports from the database for the given user
+    const reports = await Energy.find({ userName });
+    res.json(reports);
+  } catch (error) {
+    console.error('Error fetching reports:', error);
+    res.status(500).json({ message: 'Error fetching reports' });
+  }
+});
+
+
+app.post('/save-wind-details', async (req, res) => {
+  try {
+    const { userName, location, turbineCount, energyProduction, monthlyEnergy } = req.body;
+
+    const newReport = new WindReport({
+      userName,
+      location,
+      turbineCount,
+      energyProduction,
+      monthlyEnergy,
+    });
+
+    await newReport.save();
+    res.status(201).json({ message: 'Wind energy report saved successfully' });
+  } catch (error) {
+    console.error('Error saving wind energy report:', error);
+    res.status(500).json({ message: 'Failed to save wind energy report' });
+  }
+});
+
+// Route to fetch saved wind energy reports for a specific user
+// Backend (Express.js)
+// Backend (Express.js)
+app.get('/get-wind-reports', async (req, res) => {
+  try {
+    const { userName } = req.query;
+    // Make sure you're using the WindReport model (not Energy model or SolarReport model)
+    const reports = await WindReport.find({ userName }); // Adjust based on your model
+    res.status(200).json(reports);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching wind reports' });
+  }
+});
+
+
 // Energy endpoint
 app.get('/energy/:location', async (req, res) => {
   const location = req.params.location;

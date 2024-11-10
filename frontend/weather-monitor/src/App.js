@@ -16,13 +16,13 @@ import RealTimeDisaster from './components/DisasterByContinent';
 import WeatherDataDisplay from './components/WeatherDataDisplay';
 import DisasterKit from './components/DisasterKit';
 import WeatherMap from './components/WeatherMap';
-import LoginButton from './components/LoginButton';
-import LogOut from './components/LogOut';
-import UserProfile from './components/UserProfile';
 import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRoute
 import axios from 'axios';
-import Header from './components/Header';
 import WeatherComponent from './components/WeatherComponent';
+import WeatherDashboard from './WeatherDashboard';
+import ActiveDisastersMap from './components/ActiveDisasterMap';
+import WeatherAlertsMap from './components/WeatherAlertsMap';
+import DisasterAlerts from './components/DisasterAlerts';
 const App = () => {
   const { isAuthenticated } = useAuth0();
   const [location, setLocation] = useState('');
@@ -64,6 +64,10 @@ const App = () => {
           <Route path="/real" element={<ProtectedRoute><RealTimeDisaster /></ProtectedRoute>} />
           <Route path="/emergency" element={<ProtectedRoute><DisasterKit /></ProtectedRoute>} />
           <Route path="/myweather" element={<WeatherComponent />} />
+          <Route path="/my" element={<WeatherDashboard />} />
+          <Route path="/m" element={<ActiveDisastersMap/>} />
+          <Route path="/n" element={<WeatherAlertsMap/>} />
+          <Route path="/d" element={<DisasterAlerts/>} />
         </Routes>
       </div>
     </Router>

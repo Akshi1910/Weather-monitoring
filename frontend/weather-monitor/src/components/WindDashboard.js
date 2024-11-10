@@ -1,103 +1,158 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
-import styles from './EnergyDashboard.module.css'; // Import the CSS module
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import styles from './EnergyDashboard.module.css';
+import Navbar from './Navbar';
 
 const WindDashboard = () => {
-  const [input, setInput] = useState(''); // Store user input for location
-  const [windData, setWindData] = useState([]); // Store wind energy data
-  const [error, setError] = useState(null); // Store any errors
+  const [input, setInput] = useState('');
+  const [turbineCount, setTurbineCount] = useState();
+  const [weatherData, setWeatherData] = useState(null);
+  const [energyProduction, setEnergyProduction] = useState([]);
+  const [error, setError] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [showMonthly, setShowMonthly] = useState(false);
 
-  // Calculate wind energy production based on wind speed
-  const calculateWindEnergy = (speed) => {
-    const airDensity = 1.225; // kg/m³ at sea level
-    const area = 1; // m² (Assuming 1 m² area for simplicity)
-    return 0.5 * airDensity * area * Math.pow(speed, 3); // Energy in watts
-  };
+  const [monthlyEnergy, setMonthlyEnergy] = useState(null); // State for monthly energy
 
-  // Fetch weather data from backend API
-  const fetchWindData = async () => {
+  const AIR_DENSITY = 1.225; // kg/m³ at sea level
+  const TURBINE_AREA = 10; // Assuming 10 m² area for simplicity
+  const TURBINE_EFFICIENCY = 0.4; // 40% efficiency for wind turbines
+
+  const fetchWeather = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/weather/${input}`); // Replace with your backend endpoint
-      const forecasts = response.data.list;
-
-      const windProduction = forecasts.map((forecast) => {
-        const speed = forecast.wind.speed;
-        const energy = calculateWindEnergy(speed);
-
-        return {
-          time: forecast.dt_txt,
-          speed: speed,
-          energy: energy.toFixed(2), // Energy in watts
-        };
-      });
-
-      setWindData(windProduction); // Store the calculated wind data
-      setError(null); // Clear any errors
-    } catch (err) {
-      console.error('Error fetching wind data:', err);
-      setError('Enter a valid location(county or city)');
+      const response = await axios.get(`http://localhost:5000/weather/${input}`);
+      setWeatherData(response.data);
+      calculateEnergyProduction(response.data.list);
+      setError(null);
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+      setError('Please enter a valid location');
     }
   };
 
+  const calculateEnergyProduction = (forecasts) => {
+    const productionData = forecasts.map((forecast) => {
+      const windSpeed = forecast.wind.speed; // Assuming the wind speed is in m/s
+      const energy = calculateWindEnergy(windSpeed);
+      return {
+        time: forecast.dt_txt,
+        windSpeed,
+        energy,
+      };
+    });
+
+    // Calculate the total energy produced and the average energy
+    const totalEnergy = productionData.reduce((total, data) => total + data.energy, 0);
+    const averageEnergy = totalEnergy / productionData.length;
+
+    // Calculate the total energy produced for a month (30 days)
+    const monthlyEnergy = averageEnergy * 30;  // Assuming 30 days in a month
+
+    setEnergyProduction(productionData);
+    setMonthlyEnergy(monthlyEnergy);  // Store the monthly energy estimate
+  };
+
+  const calculateWindEnergy = (windSpeed) => {
+    const area = TURBINE_AREA * turbineCount;
+    return 0.5 * AIR_DENSITY * area * Math.pow(windSpeed, 3) * TURBINE_EFFICIENCY;
+  };
+
+  const toggleDetails = () => {
+    setShowDetails(!showDetails);
+  };
+
+  const toggleMonthly = () => {
+    setShowMonthly(!showMonthly);
+  };
+
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Wind Energy Production Forecast</h1>
-      <p>Please enter a country or city</p><br/>
-      {/* Input field to enter location */}
-      <div className={styles.inputSection}>
-        <input
-          type="text"
-          placeholder="Enter Location"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className={styles.input}
-        />
-        <button onClick={fetchWindData} className={styles.button}>
-          Get Wind Energy Data
-        </button>
-      </div>
+    <div>
+      <Navbar />
+      <div className={styles.container}>
+        <h1 className={styles.title}>Wind Energy Production Forecast</h1>
+        <p>Please enter a city or country</p><br/>
 
-      {error && <p className={styles.errorMessage}>{error}</p>}
+        <div className={styles.flexContainer}>
+          <div className={styles.inputContainer}>
+            <input
+              type="text"
+              placeholder="Enter Location"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className={styles.input}
+            /><br />
+            <input
+              type="number"
+              placeholder="Enter Number of Turbines"
+              value={turbineCount}
+              onChange={(e) => setTurbineCount(e.target.value)}
+              className={styles.input}
+              min="1"
+            />
+            <button onClick={fetchWeather} className={styles.button}>
+              Get Forecast
+            </button>
+            <button onClick={toggleDetails} className={styles.button}>
+              {showDetails ? 'Hide Details' : 'More Details'}
+            </button>
+            <button onClick={toggleMonthly} className={styles.button}>
+              {showMonthly ? 'Hide Monthly Average' : 'Get Monthly Average'}
+            </button>
+          </div>
 
-      {windData.length > 0 && (
-        <div>
-          <h3>Wind Data</h3>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Date & Time</th>
-                <th>Wind Speed (m/s)</th>
-                <th>Energy Production (W)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {windData.map((data, index) => (
-                <tr key={index}>
-                  <td>{data.time}</td>
-                  <td>{data.speed} m/s</td>
-                  <td>{data.energy} W</td>
+          <div className={styles.chartContainer}>
+            {weatherData && (
+              <LineChart width={800} height={400} data={energyProduction}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="energy" stroke="#82ca9d" name="Energy Production (W)" />
+              </LineChart>
+            )}
+            {!weatherData && (
+              <div className={styles.inputContainer}>
+                <p>Enter a city or country to get the data!</p>
+                <p>This dashboard allows users to input a location and the number of wind turbines to estimate energy production based on wind speed forecasts. Users can easily see how much energy the wind turbines will generate over time through an interactive chart. Detailed wind conditions and energy output values are available via the 'More Details' button, making it a valuable tool for planning wind energy installations based on specific weather conditions.</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {showMonthly && monthlyEnergy && (
+          <div className={styles.monthlyEnergyContainer}>
+            <h3>Estimated Monthly Energy Production: {monthlyEnergy.toFixed(2)} W</h3>
+          </div>
+        )}
+
+        {showDetails && weatherData && (
+          <div className={styles.detailsContainer}>
+            <h3>Weather Forecast for {input}</h3>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>Wind Speed (m/s)</th>
+                  <th>Description</th>
+                  <th>Energy Production (W)</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {windData.length > 0 && (
-        <div>
-          <h3>Wind Energy Production Graph</h3>
-          
-          <LineChart width={900} height={500} data={windData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="time" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="energy" stroke="#4287f5" name="Wind Energy Production (W)" />
-          </LineChart>
-        </div>
-      )}
+              </thead>
+              <tbody>
+                {energyProduction.map((data, index) => (
+                  <tr key={index}>
+                    <td>{data.time}</td>
+                    <td>{data.windSpeed} m/s</td>
+                    <td>{weatherData.list[index].weather[0].description}</td>
+                    <td>{data.energy.toFixed(2)} W</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

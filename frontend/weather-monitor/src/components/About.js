@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './About.module.css'; // Import CSS Module
-
+import Navbar from './Navbar';
 const About = () => {
   return (
     <div className={styles.aboutContainer}>
-      <nav className={styles.navbar}>
+      {/* <nav className={styles.navbar}>
         <h1 className={styles.logo}>Weather Monitoring System</h1>
         <ul className={styles.navLinks}>
           <li><Link to="/">Home</Link></li>
@@ -14,7 +14,8 @@ const About = () => {
           <li><Link to="/register">Register</Link></li>
           <li><Link to="/login">Login</Link></li>
         </ul>
-      </nav>
+      </nav> */}
+      <Navbar/>
 
       <div className={styles.cardContainer}>
   <div className={styles.card}>

@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-    origin: "http://localhost:3000",
+    //origin: "http://localhost:3000",
     credentials: true
 };
 app.use(cors(corsOptions));
@@ -30,6 +30,19 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/api/users', userRoutes); // Ensure userRoutes is set up correctly
 // Use weather routes
 app.use('/api/disasters', disasterRoutes);
+
+
+app.get('/api/disaster-alerts', async (req, res) => {
+  try {
+    const response = await axios.get('https://www.gdacs.org/xml/rss_24h.xml');
+    res.send(response.data);
+  } catch (error) {
+    console.error("Error fetching disaster alerts:", error);
+    res.status(500).send("Failed to fetch disaster alerts");
+  }
+});
+
+
 app.post('/api/resources/report', async (req, res) => {
   const { name, type, quantity, location, contactInfo, description, disasterId } = req.body;
 

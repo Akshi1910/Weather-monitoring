@@ -1,30 +1,23 @@
 /* Global Settings */
 * {
-  
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+.homeContainer {
   font-family: 'Arial', sans-serif;
-  background-color: #000000;
-  background-image: url('https://img.uhdpaper.com/wallpaper/sea-ocean-render-tree-digital-art-reflection-490@0@f-pc-4k.jpg'); /* Add the background image */
-  background-size: cover; /* Ensure the image covers the entire background */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  color: #333;
+  background-color: #f9f9f9; /* Light background color */
+  color: #333; /* Dark text color for readability */
 }
-
 
 /* Home Container */
 .homeContainer {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Start content from the top */
+  justify-content: flex-start;
   min-height: 100vh;
   text-align: center;
-  /*background: linear-gradient(180deg, #fff, #f7f7f7);*/
   animation: fadeIn 1.5s ease-out forwards;
   padding: 20px;
   overflow: hidden;
@@ -36,12 +29,14 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
+  background: white; /* White background for navbar */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .logo {
   font-size: 24px;
   font-weight: bold;
-  color: #FF66B2;
+  color: #FF66B2; /* Keep your existing color for logo */
 }
 
 .navLinks {
@@ -52,22 +47,22 @@ body {
 
 .navLinks a {
   text-decoration: none;
-  color: #fefdfd;
+  color: #333; /* Dark color for links */
   font-weight: 600;
   transition: color 0.3s;
 }
 
 .navLinks a:hover {
-  color: #FF66B2;
+  color: #FF66B2; /* Keep hover color */
 }
 
 /* Main Content Section */
 .content {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Aligns content towards the top */
+  justify-content: flex-start;
   align-items: center;
-  padding-top: 100px; /* Moves the content higher on the page */
+  padding-top: 100px;
   text-align: center;
 }
 
@@ -79,16 +74,14 @@ body {
 .introduction h2 {
   font-size: 48px;
   font-weight: 700;
-  /*color: #333;*/
-  color:#fff;
+  color: #333; /* Dark color for headings */
 }
 
 .introduction p {
   font-size: 18px;
-  /*color: #555;*/
   margin: 20px 0;
   line-height: 1.6;
-  color:#fff;
+  color: #555; /* Medium gray for paragraph text */
 }
 
 /* Button Container */
@@ -116,6 +109,86 @@ body {
   transform: translateY(-3px);
 }
 
+/* Slider styles */
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  position: relative;
+  width: 80%;
+  height: 200px;
+  overflow: hidden;
+  background: #fff; /* White background for slider */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+.sliderImage {
+  width: 22%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  margin: 0 1%;
+  animation: fadeIn 1.2s ease-out;
+  transition: transform 0.5s ease;
+}
+
+.sliderButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8); /* Slightly transparent white for buttons */
+  color: black; /* Dark text color */
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 1;
+  border-radius: 50%; /* Rounded buttons */
+}
+
+.sliderButton:hover {
+  background: rgba(255, 255, 255, 1); /* Fully opaque on hover */
+}
+
+.sliderButton:nth-of-type(1) {
+  left: 10px;
+}
+
+.sliderButton:nth-of-type(2) {
+  right: 10px;
+}
+
+/* User Profile */
+.userProfile {
+  display: flex;
+  align-items: center;
+}
+
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content {
+    padding: 20px;
+  }
+
+  .introduction h2 {
+    font-size: 36px;
+  }
+
+  .styledButton {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
 /* Fade In Animation */
 @keyframes fadeIn {
   from {
@@ -136,169 +209,4 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .content {
-    padding: 20px;
-  }
-
-  .introduction h2 {
-    font-size: 36px;
-  }
-
-  .styledButton {
-    width: 100%;
-    margin: 10px 0;
-  }
-}
-/* Slider styles */
-.sliderContainer {
-  display: flex;
-  overflow: hidden;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.sliderContent {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: fit-content;
-}
-
-.sliderImage {
-  min-width: 200px; /* Set width for each image */
-  height: 150px; /* Set height for each image */
-  object-fit: cover;
-  margin: 0; /* Remove margins between images */
-  padding: 0; /* Remove padding */
-}
-
-.sliderImage:not(:last-child) {
-  margin-right: 10px; /* Slight margin between images, adjust as needed */
-}
-
-.slider {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-  position: relative;
-  width: 80%;
-  height: 200px;
-  overflow: hidden;
-}
-
-.sliderImageContainer {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.sliderImage {
-  width: 22%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-  margin: 0 1%;
-  animation: fadeIn 1.2s ease-out;
-  transition: transform 0.5s ease; /* Smooth transition for sliding */
-}
-
-.sliderButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 24px;
-  z-index: 1;
-}
-
-.sliderButton:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.sliderButton:nth-of-type(1) {
-  left: 10px;
-}
-
-.sliderButton:nth-of-type(2) {
-  right: 10px;
-}
-
-/* Fade In Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.sliderImageContainer {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: fit-content;
-}
-
-.slider {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 80%;
-  height: 200px;
-  overflow: hidden;
-}
-
-.sliderImage {
-  width: 100%; /* Adjust the width to take up the full slider */
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.sliderButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 24px;
-  z-index: 1;
-}
-
-.sliderButton:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.sliderButton:nth-of-type(1) {
-  left: 10px;
-}
-
-.sliderButton:nth-of-type(2) {
-  right: 10px;
-}
-
-/* Home.module.css */
-.userProfile {
-  display: flex;
-  align-items: center;
-}
-
-.profileImage {
-  width: 40px; /* Set desired width */
-  height: 40px; /* Set desired height */
-  border-radius: 50%; /* Makes the image circular */
-  margin-right: 10px; /* Space between the image and the logout button */
 }

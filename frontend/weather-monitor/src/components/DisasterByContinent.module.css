@@ -7,7 +7,7 @@
   
   body {
     font-family: 'Arial', sans-serif;
-    background-color: #000000;
+    background-color: #f6f6f6;
     background-image: url('https://img.uhdpaper.com/wallpaper/sea-ocean-render-tree-digital-art-reflection-490@0@f-pc-4k.jpg'); /* Add the background image */
     background-size: cover; /* Ensure the image covers the entire background */
     background-position: center; /* Center the background image */
@@ -31,7 +31,7 @@
   .title {
     font-size: 36px;
     font-weight: bold;
-    color: #FF66B2;
+    color: #ff2391;
     margin-bottom: 20px;
   }
   
@@ -56,7 +56,7 @@
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    background: linear-gradient(90deg, #ff66b2, #d847ff);
+    background: linear-gradient(90deg, #ff2391, #d847ff);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -64,7 +64,7 @@
   }
   
   .fetchButton:hover {
-    background: linear-gradient(90deg, #ff4da6, #c339ff);
+    background: linear-gradient(90deg, #ff2391, #c339ff);
     transform: translateY(-2px);
   }
   
@@ -117,7 +117,7 @@
   }
   
   .card {
-    border: 2px solid #FF66B2; /* Border color */
+    border: 2px solid #ff0080; /* Border color */
     border-radius: 10px; /* Rounded corners */
     padding: 20px;
     width: 300px; /* Fixed width for cards */
@@ -133,7 +133,7 @@
   
   .card h2 {
     font-size: 30px; /* Title size */
-    color: #FF66B2; /* Title color */
+    color: #ff2391; /* Title color */
   }
   
   .card h3 {

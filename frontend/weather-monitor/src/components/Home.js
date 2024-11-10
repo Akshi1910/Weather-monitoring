@@ -57,10 +57,10 @@ const Home = () => {
         <ul className={styles.navLinks}>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
-          <li><Link to="/weather">Weather</Link></li>
+          <li><Link to="/my">Weather</Link></li>
           <li><Link to="/energy">Solar Energy</Link></li>
           <li><Link to="/wind">Wind Energy</Link></li>
-          <li><Link to="/disasterlist">Reported Disaster</Link></li>
+          <li><Link to="/real">Disaster Reports</Link></li>
         
           {isAuthenticated && user ? (
             <div className={styles.userProfile}>
@@ -86,7 +86,7 @@ const Home = () => {
 
       <div className={styles.content}>
         <div className={styles.introduction}>
-          <h2>Welcome to the Weather Monitoring System</h2>
+          <h2>Weather Monitoring System</h2>
           <p>Get real-time weather updates for your location! Monitor solar energy and wind energy production based on your location's weather conditions</p>
         </div>
 

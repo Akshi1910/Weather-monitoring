@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from './DisasterByContinent.module.css';
-
+import Navdis from "./Navdis";
 const DisasterByContinent = () => {
   const [continent, setContinent] = useState("ant");
   const [events, setEvents] = useState([]);
@@ -36,6 +36,8 @@ const DisasterByContinent = () => {
   };
 
   return (
+    <div>
+      <Navdis/>
     <div className={styles.disasterContainer}>
       <h1 className={styles.title}>Disaster Events by Continent</h1>
       <div className={styles.selectContainer}>
@@ -72,6 +74,7 @@ const DisasterByContinent = () => {
           )}
         </div>
       )}
+    </div>
     </div>
   );
 };

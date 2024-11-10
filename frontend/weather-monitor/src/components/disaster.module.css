@@ -1,182 +1,182 @@
 /* Card Container */
 .cardContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    animation: fadeIn 1.5s ease-out forwards;
-  }
-  
-  /* Title Styling for Disaster Reports */
-  .cardContainer .title {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-  
-  /* Card Styling */
-  .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .card {
-    background-color: #1a1a1a;
-    color: #fff;
-    border: 2px solid #FF66B2;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 300px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  }
-  .homeContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Start content from the top */
-    min-height: 100vh;
-    text-align: center;
-    /*background: linear-gradient(180deg, #fff, #f7f7f7);*/
-    animation: fadeIn 1.5s ease-out forwards;
-    padding: 20px;
-    overflow: hidden;
-  }
-  
-  /* Navbar Styling */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #FF66B2;
-  }
-  /* Global Settings */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* Title Styling for Disaster Reports */
+.cardContainer .title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Card Styling */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 2px solid #FF66B2;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Start content from the top */
+  min-height: 100vh;
+  text-align: center;
+  /*background: linear-gradient(180deg, #fff, #f7f7f7);*/
+  animation: fadeIn 1.5s ease-out forwards;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #FF66B2;
+}
+/* Global Settings */
 * {
-  
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #000000;
-    background-image: url('https://img.uhdpaper.com/wallpaper/sea-ocean-render-tree-digital-art-reflection-490@0@f-pc-4k.jpg'); /* Add the background image */
-    background-size: cover; /* Ensure the image covers the entire background */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-    color: #ffffff;
-  }
-  
-  
-  /* Home Container */
-  .homeContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Start content from the top */
-    min-height: 100vh;
-    text-align: center;
-    /*background: linear-gradient(180deg, #fff, #f7f7f7);*/
-    animation: fadeIn 1.5s ease-out forwards;
-    padding: 20px;
-    overflow: hidden;
-  }
-  
-  /* Navbar Styling */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #FF66B2;
-  }
-  
-  .navLinks {
-    list-style-type: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .navLinks a {
-    text-decoration: none;
-    color: #fefdfd;
-    font-weight: 600;
-    transition: color 0.3s;
-  }
-  
-  .navLinks a:hover {
-    color: #FF66B2;
-  }
-  
-  /* Main Content Section */
-  .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Aligns content towards the top */
-    align-items: center;
-    padding-top: 100px; /* Moves the content higher on the page */
-    text-align: center;
-  }
-  
-  /* disaster.module.css */
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #000000;
+  background-image: url('https://img.uhdpaper.com/wallpaper/sea-ocean-render-tree-digital-art-reflection-490@0@f-pc-4k.jpg'); /* Add the background image */
+  background-size: cover; /* Ensure the image covers the entire background */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  color: #ffffff;
+}
+
+
+/* Home Container */
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Start content from the top */
+  min-height: 100vh;
+  text-align: center;
+  /*background: linear-gradient(180deg, #fff, #f7f7f7);*/
+  animation: fadeIn 1.5s ease-out forwards;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #FF66B2;
+}
+
+.navLinks {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: #fefdfd;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.navLinks a:hover {
+  color: #FF66B2;
+}
+
+/* Main Content Section */
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Aligns content towards the top */
+  align-items: center;
+  padding-top: 100px; /* Moves the content higher on the page */
+  text-align: center;
+}
+
+/* disaster.module.css */
 
 /* Resource Button */
 .resourceButton {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #ff66b2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .resourceButton:hover {
-    background-color: #d847ff;
-  }
-  
-  /* Resource List Styling */
-  .resourceList {
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    color: black;
-  }
-  
-  .resourceItem {
-    margin-bottom: 10px;
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-  }
-  /* Home.module.css */
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #ff66b2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.resourceButton:hover {
+  background-color: #d847ff;
+}
+
+/* Resource List Styling */
+.resourceList {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: black;
+}
+
+.resourceItem {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+/* Home.module.css */
 .userProfile {
-  display: flex;
-  align-items: center;
+display: flex;
+align-items: center;
 }
 
 .profileImage {
-  width: 40px; /* Set desired width */
-  height: 40px; /* Set desired height */
-  border-radius: 50%; /* Makes the image circular */
-  margin-right: 10px; /* Space between the image and the logout button */
+width: 40px; /* Set desired width */
+height: 40px; /* Set desired height */
+border-radius: 50%; /* Makes the image circular */
+margin-right: 10px; /* Space between the image and the logout button */
 }

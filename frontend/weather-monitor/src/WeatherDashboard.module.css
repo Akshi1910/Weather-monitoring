@@ -1,4 +1,3 @@
-/* WeatherDashboard.module.css */
 * {
     margin: 0;
     padding: 0;
@@ -7,18 +6,20 @@
 }
 
 .dashboardContainer {
-    background: #E3F2FD; /* Your desired background color */
-    min-height: 100vh; /* Ensure it takes up full height */
-    padding: 20px; /* Add some padding if necessary */
+    background: #f9f9f9; /* Light pink background */
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .h1 {
-    background: #5372F0;
+   /*background: #ff66b2; /* Primary pink color */
     font-size: 1.75rem;
     padding: 18px 0;
-    color: #fff;
+    color: #000; /* Text changed to black */
 }
-
+.h2{
+    color: #000;
+}
 .container {
     display: flex;
     gap: 35px;
@@ -38,6 +39,7 @@
     margin: 10px 0 20px 0;
     border-radius: 4px;
     border: 1px solid #ccc;
+    color: #000; /* Text changed to black */
 }
 
 .separator {
@@ -52,11 +54,11 @@
 
 .separator::before {
     content: "or";
-    color: #6C757D;
+    color: #000; /* Text changed to black */
     font-size: 1.18rem;
     padding: 0 15px;
     margin-top: -4px;
-    background: #E3F2FD;
+    background: #FFE3F2;
 }
 
 .weatherInput button {
@@ -65,14 +67,25 @@
     cursor: pointer;
     outline: none;
     border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
     color: #fff;
-    font-size: 1rem;
-    border-radius: 4px;
-    background: #5372F0;
+    background: linear-gradient(90deg, #ff66b2, #d847ff);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+    text-align: center;
+}
+.weatherInput button:hover{
+    background: linear-gradient(90deg, #ff4da6, #c339ff);
+    transform: translateY(-3px);
 }
 
 .locationBtn {
-    background: #6C757D;
+    background: #ffffff;
 }
 
 .weatherData {
@@ -80,22 +93,24 @@
 }
 
 .currentWeather {
-    color: #fff;
+    color: #000; /* Text changed to black */
     display: flex;
     border-radius: 5px;
     padding: 20px 70px 20px 20px;
-    background: #5372F0;
+    background: #ffffff;
     justify-content: space-between;
 }
 
 .currentWeather h2 {
     font-size: 1.7rem;
+    color: #000; /* Text changed to black */
 }
 
 .weatherData h4 {
     margin-top: 12px;
     font-size: 1rem;
     font-weight: 500;
+    color: #000; /* Text changed to black */
 }
 
 .currentWeather .icon {
@@ -110,11 +125,13 @@
 .currentWeather .icon h4 {
     margin-top: -10px;
     text-transform: capitalize;
+    color: #000; /* Text changed to black */
 }
 
 .daysForecast h2 {
     font-size: 1.5rem;
     margin: 20px 0;
+    color: #000; /* Text changed to black */
 }
 
 .weatherCards {
@@ -124,10 +141,10 @@
 
 .weatherCards .card {
     list-style: none;
-    color: #fff;
+    color: #000; /* Text changed to black */
     padding: 18px 16px;
     border-radius: 5px;
-    background: #6C757D;
+    background: linear-gradient(90deg, #ff66b2, #d847ff); /* Slightly darker pink for forecast cards */
     width: calc(100% / 5);
 }
 
@@ -135,7 +152,9 @@
     max-width: 70px;
     margin: 5px 0 -12px 0;
 }
-
+.ww h2{
+    color: #000000;
+}
 @media (max-width: 1400px) {
     .weatherData .currentWeather {
         padding: 20px;

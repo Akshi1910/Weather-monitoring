@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./WeatherDashboard.module.css"; // Import the CSS module
-
+import Navbar from "./components/Navbar";
 const WeatherDashboard = () => {
     const [cityInput, setCityInput] = useState("");
     const [currentWeather, setCurrentWeather] = useState(null);
@@ -11,7 +11,7 @@ const WeatherDashboard = () => {
         const date = weatherItem.dt_txt.split(" ")[0];
         return (
             <li className={styles.card} key={index}>
-                <h3>{cityInput} {date}</h3>
+                <h3>{cityInput} {date}</h3> {/* Display city name with date */}
                 
                 <img src={`https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png`} alt="weather-icon" />
                 <h4>Temperature: {(weatherItem.main.temp - 273.15).toFixed(2)}°C</h4>
@@ -22,7 +22,7 @@ const WeatherDashboard = () => {
     };
 
     const getWeatherDetails = (cityName, lat, lon) => {
-        const weather_url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+        const weather_url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
         fetch(weather_url)
             .then(res => res.json())
             .then(data => {
@@ -40,7 +40,7 @@ const WeatherDashboard = () => {
                 }).slice(0, 5); // Take the first 5 unique days
 
                 setForecast(filteredForecast);
-                setCityInput(""); // Clear input
+                setCityInput(cityName); // Set the searched city name
             })
             .catch(() => {
                 alert("Error fetching weather data");
@@ -48,14 +48,13 @@ const WeatherDashboard = () => {
     };
 
     const getCityCoordinates = () => {
-        const api_url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=1&appid=${API_KEY}`;
+        const api_url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=1&appid=${API_KEY}`;
         fetch(api_url)
             .then(res => res.json())
             .then(data => {
                 if (!data.length) return alert("No coordinates found");
                 const { lat, lon } = data[0];
                 getWeatherDetails(cityInput, lat, lon);
-                console.log(data);
             })
             .catch(() => {
                 alert("Error fetching city coordinates");
@@ -66,7 +65,7 @@ const WeatherDashboard = () => {
         navigator.geolocation.getCurrentPosition(
             position => {
                 const { latitude, longitude } = position.coords;
-                const REVERSE_GEO_URL = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
+                const REVERSE_GEO_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
                 fetch(REVERSE_GEO_URL)
                     .then(res => res.json())
                     .then(data => {
@@ -87,8 +86,10 @@ const WeatherDashboard = () => {
     };
 
     return (
+        <div>
+            <Navbar/>
         <div className={styles.dashboardContainer}>
-            <h1 className={styles.h1}>Weather Dashboard</h1>
+            <h1 className={styles.h1}>Weather Dashboard</h1> {/* Display the searched city here */}
             <div className={styles.container}>
                 <div className={styles.weatherInput}>
                     <h3>Enter a city name</h3>
@@ -103,6 +104,7 @@ const WeatherDashboard = () => {
                     <button className={styles.locationBtn} onClick={getUserCoordinates}>Use Current Location</button>
                 </div>
                 <div className={styles.weatherData}>
+                
                     {currentWeather && (
                         <div className={styles.currentWeather}>
                             <div className={styles.details}>
@@ -118,13 +120,14 @@ const WeatherDashboard = () => {
                         </div>
                     )}
                     <div className={styles.dayForecast}>
-                        <h2>5 Day Forecast</h2>
+                        <h2 className={styles.h2}>5 Day Forecast for {cityInput}</h2> {/* Display city name with forecast */}
                         <ul className={styles.weatherCards}>
                             {forecast.map((weatherItem, index) => createWeatherCard(weatherItem, index))}
                         </ul>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 };
